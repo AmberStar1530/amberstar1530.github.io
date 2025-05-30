@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <section class="section">
+    <div class="container">
+      
+<link rel="stylesheet" href="/css/style.css">
+
+<section class="hero">
+  <h1 class="title">Aplicaciones Web (Making of)</h1>
+  <p class="subtitle"><strong>2025-05-25</strong></p>
+</section>
+
+<section class="content">
+  <h2 id="creacion-del-blog">Creación del Blog</h2>
+<p>En esta asignatura, nos tocó realizar un trabajo práctico en el que debíamos crear una página web desde cero. Para ello, elegí utilizar Zola, un generador de sitios estáticos que facilita la creación de blogs sin necesidad de bases de datos ni configuraciones complejas.</p>
+<p>En este apartado hablaré más que nada del proceso de creación de este blog, qué herramientas he utilizado, explicación de algunos conceptos de HTML y CSS, y sobre todo, las dificultades que han surgido en mi caso durante la construcción de esta página.</p>
+<h2 id="que-es-zola-y-como-funciona">¿Qué es Zola y cómo funciona?</h2>
+<p>Zola es un generador de sitios web estáticos, lo que significa que crea páginas web que no dependen de bases de datos ni procesamiento en el servidor. En lugar de generar contenido dinámico cada vez que alguien visita la página, Zola precompila el sitio y lo deja listo para ser servido rápidamente.</p>
+<p>Su funcionamiento se basa en los siguientes pasos:</p>
+<h3 id="creacion-del-contenido">Creación del contenido</h3>
+<ul>
+<li>
+<p>Se escribe los artículos en Markdown dentro de la carpeta content/.</p>
+</li>
+<li>
+<p>Cada archivo puede incluir metadatos como título y fecha para estructurar mejor la información.</p>
+</li>
+</ul>
+<h3 id="uso-de-plantillas-con-tera">Uso de plantillas con Tera</h3>
+<ul>
+<li>
+<p>En la carpeta templates/, se define cómo se verá el sitio.</p>
+</li>
+<li>
+<p>Puedes crear una plantilla base.html que se reutiliza en todas las páginas.</p>
+</li>
+</ul>
+<h3 id="generacion-del-sitio">Generación del sitio</h3>
+<ul>
+<li>Zola combina el contenido en Markdown con las plantillas HTML y genera archivos .html finales en la carpeta public/, listos para ser publicados.</li>
+</ul>
+<h3 id="servidor-local-para-pruebas">Servidor local para pruebas</h3>
+<ul>
+<li>Antes de publicar el blog, se puede ejecutar en tu propia computadora con zola serve, lo que inicia un servidor local donde puedes visualizar los cambios en tiempo real.</li>
+</ul>
+<h3 id="publicacion-del-sitio">Publicación del sitio</h3>
+<ul>
+<li>Una vez generado el blog, los archivos .html pueden subirse a cualquier servicio de hosting, como GitHub Pages, Netlify o Vercel, en este caso tenemos que subirlo a GitHub.</li>
+</ul>
+<h2 id="como-se-instala-zola">Cómo se instala zola</h2>
+<p>Pasos básicos para crear un blog con Zola
+Si quieres empezar con Zola, aquí tienes un resumen de los pasos esenciales:</p>
+<h3 id="instalar-zola">Instalar Zola</h3>
+<p>Descarga Zola desde su página oficial e instálalo en tu sistema.</p>
+<p><a href="https://www.getzola.org/documentation/getting-started/installation/">Aquí encontrarás la página para que entres</a></p>
+<p>En la terminal, ejecuta:</p>
+<div class="powershell">
+    zola init mi-blog
+</div>
+<p>Esto creará la estructura básica del sitio con carpetas organizadas.</p>
+<h3 id="estructura-del-proyecto">Estructura del proyecto</h3>
+<ul>
+<li>
+<p>config.toml: Archivo donde se configura el sitio (idioma, título, ruta de contenido).</p>
+</li>
+<li>
+<p>content/: Carpeta donde se guardan los artículos en Markdown.</p>
+</li>
+<li>
+<p>templates/: Contiene las plantillas HTML que definen el diseño del sitio.</p>
+</li>
+<li>
+<p>static/: Carpeta donde se almacenan imágenes, CSS y otros archivos.</p>
+</li>
+</ul>
+<h3 id="crear-contenido">Crear contenido</h3>
+<p>Dentro de content/, puedes crear un archivo Markdown para tu primer post:</p>
+<div class= "powershell">
++++
+<p>title = "Mi primer post"</p>
+<p>date = 2025-05-29</p>
+<p>+++</p>
+<p>¡Bienvenido a mi blog con Zola!</p>
+</div>
+<h3 id="ejecutar-el-servidor-local">Ejecutar el servidor local</h3>
+<p>Para probar el blog antes de publicarlo, usa:</p>
+<div class= "powershell">
+zola serve
+Luego, accede a http://127.0.0.1:1111/ para visualizar tu sitio.
+</div>
+<p>Y con esto podrías ya terminar de crear la pagina web.</p>
+<p>Ahora tendréis que tener en cuenta estas cosas de html y css que he usado para el diseño de la pagina web para que no os salte errores.</p>
+<h2 id="html-estructura-y-plantillas-en-zola">HTML (Estructura y Plantillas en Zola)</h2>
+<h3 id="block-content">{% block content %} ...</h3>
+<ul>
+<li>
+<p>¿Qué hace? Define un bloque de contenido dentro de una plantilla de Zola, permitiendo que otras páginas extiendan base.html y sobrescriban este bloque.</p>
+</li>
+<li>
+<p>Dificultad: Si no se cierra correctamente o si el archivo base no tiene {% block content %}, el contenido no se renderiza.</p>
+</li>
+</ul>
+<h3 id="for-page-in-section-pages">{% for page in section.pages %} ...</h3>
+<ul>
+<li>
+<p>¿Qué hace? Itera sobre todas las páginas dentro de una sección, generando dinámicamente enlaces o listas de contenido.</p>
+</li>
+<li>
+<p>Dificultad: Si section.pages está vacío o mal definido, la iteración no mostrará contenido.</p>
+</li>
+</ul>
+<h3 id="nav-class-main-nav-nav"><code>&lt;nav class="main-nav"&gt; ... &lt;/nav&gt;</code></h3>
+<ul>
+<li>
+<p>¿Qué hace? Define la barra de navegación, estructurándola con  <code>&lt;ul&gt;</code> y <code>&lt;li&gt;</code> para organizar enlaces de navegación.</p>
+</li>
+<li>
+<p>Dificultad: Se debe posicionar correctamente con CSS para que sea fija y no interfiera con el contenido.</p>
+</li>
+</ul>
+<h3 id="section-class-hero-section"><code>&lt;section class="hero"&gt; ... &lt;/section&gt;</code></h3>
+<ul>
+<li>
+<p>¿Qué hace? Crea una sección destacada en la parte superior de la página, ideal para títulos y bienvenida.</p>
+</li>
+<li>
+<p>Dificultad: Ajustar el espaciado correctamente para que no quede demasiado junto a otros elementos.</p>
+</li>
+</ul>
+<h2 id="css-estilos-y-diseno">CSS (Estilos y Diseño)</h2>
+<h3 id="position-fixed-bottom-10px"><code>position: fixed; bottom: 10px;</code></h3>
+<pre><code>(Fijar elementos)
+</code></pre>
+<ul>
+<li>
+<p>¿Qué hace? Mantiene la barra de navegación en una posición fija en la parte inferior de la página.</p>
+</li>
+<li>
+<p>Dificultad: Si no se maneja bien con z-index y width: 100%, puede superponerse con el contenido o no ajustarse bien en móviles.</p>
+</li>
+</ul>
+<h3 id="display-flex-gap-15px"><code>display: flex; gap: 15px;</code></h3>
+<pre><code>(Distribución con Flexbox)
+</code></pre>
+<ul>
+<li>
+<p>¿Qué hace? Distribuye elementos horizontalmente con separación uniforme.</p>
+</li>
+<li>
+<p>Dificultad: Necesita ajustes adicionales como justify-content: center; para una correcta alineación.</p>
+</li>
+</ul>
+<h3 id="box-shadow-0-4px-12px-rgba-0-0-0-0-2"><code>box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);</code></h3>
+<pre><code>(Sombras en elementos)
+</code></pre>
+<ul>
+<li>
+<p>¿Qué hace? Añade profundidad visual a los elementos, haciéndolos más elegantes.</p>
+</li>
+<li>
+<p>Dificultad: Puede verse demasiado intenso en algunos dispositivos si no se ajusta el nivel de opacidad.</p>
+</li>
+</ul>
+<h3 id="text-shadow-2px-2px-5px-rgba-0-0-0-0-2"><code>text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);</code></h3>
+<pre><code>(Efecto de sombra en texto)
+</code></pre>
+<ul>
+<li>
+<p>¿Qué hace? Genera una sombra suave en los títulos para mejorar la visibilidad.</p>
+</li>
+<li>
+<p>Dificultad: Debe usarse con moderación para evitar que el texto se vea borroso.</p>
+</li>
+</ul>
+<h3 id="transition-transform-0-2s-ease"><code>transition: transform 0.2s ease;</code></h3>
+<pre><code>(Efectos al pasar el cursor)
+</code></pre>
+<ul>
+<li>
+<p>¿Qué hace? Agrega una animación suave cuando se pasa el cursor sobre un botón o enlace.</p>
+</li>
+<li>
+<p>Dificultad: Si no se define correctamente, la animación puede ser muy brusca o no verse bien en todos los navegadores.</p>
+</li>
+</ul>
+<h2 id="resumen-de-problemas-en-el-desarrollo-del-blog">Resumen de Problemas en el Desarrollo del Blog</h2>
+<p>Durante la creación de este blog con Zola, han surgido varios desafíos técnicos y de diseño que requirieron ajustes en la estructura del código, la configuración visual y la correcta implementación de plantillas. Aquí se recopilan los errores más comunes y las soluciones aplicadas:</p>
+<h3 id="problemas-con-la-estructura-html-y-zola">Problemas con la Estructura HTML y Zola</h3>
+<p>Errores comunes:</p>
+<ul>
+<li>
+<p>Bloques {% block content %} no cerrados correctamente, causando que el contenido no se mostrara.</p>
+</li>
+<li>
+<p>Uso incorrecto de { page.title }, lo que provocaba que el título quedara vacío o generara errores.</p>
+</li>
+<li>
+<p>section.pages vacío o mal referenciado, impidiendo la carga de la lista de artículos.</p>
+</li>
+</ul>
+<h3 id="soluciones-aplicadas">Soluciones aplicadas:</h3>
+<ul>
+<li>
+<p>Asegurar que todos los bloques estén bien estructurados con {% endblock content %}.</p>
+</li>
+<li>
+<p>Revisar la configuración de cada página para que { page.title } y { page.permalink } estén correctamente definidos.</p>
+</li>
+<li>
+<p>Depurar el contenido de section.pages con pruebas (print(section.pages)) para validar su funcionalidad.</p>
+</li>
+</ul>
+<h3 id="problemas-de-distribucion-del-menu-de-navegacion">Problemas de Distribución del Menú de Navegación</h3>
+<p>Errores comunes:</p>
+<ul>
+<li>
+<p>Inicialmente, el menú estaba en la parte superior cuando debía estar abajo.</p>
+</li>
+<li>
+<p>La alineación de los botones no era óptima, lo que afectaba la estética.</p>
+</li>
+</ul>
+<h3 id="soluciones-aplicadas-1">Soluciones aplicadas:</h3>
+<ul>
+<li>
+<p>Mover la barra de navegación a la parte inferior mediante <code>position: fixed; bottom: 10px;</code>.</p>
+</li>
+<li>
+<p>Usar <code>display: flex;</code> con <code>gap</code> para distribuir los elementos correctamente.</p>
+</li>
+</ul>
+<h3 id="soluciones-aplicadas-2">Soluciones aplicadas:</h3>
+<ul>
+<li>
+<p>Reducir el tamaño del título a <code>font-size: 2.5rem</code> para un mejor ajuste.</p>
+</li>
+<li>
+<p>Implementar <code>margin-bottom: 20px;</code> para evitar que quede demasiado cerca del contenido.</p>
+</li>
+</ul>
+<h3 id="inconsistencia-entre-html-y-css">Inconsistencia entre HTML y CSS</h3>
+<p>Errores comunes:</p>
+<ul>
+<li>
+<p>Algunos cambios en el CSS no reflejaban correctamente la estructura del HTML.</p>
+</li>
+<li>
+<p>Se agregaron estilos que no coincidían con los elementos existentes.</p>
+</li>
+</ul>
+<h3 id="soluciones-aplicadas-3">Soluciones aplicadas:</h3>
+<ul>
+<li>
+<p>Asegurar que los ajustes de CSS correspondieran a los elementos reales en el HTML.</p>
+</li>
+<li>
+<p>Evitar agregar nuevas clases o estructuras que no estuvieran presentes en la plantilla.</p>
+</li>
+</ul>
+<h2 id="conclusion-final">Conclusión Final</h2>
+<p>A lo largo del desarrollo de mi página web, me enfrenté a diversos desafíos que pusieron a prueba mi capacidad para estructurar correctamente el contenido, definir un diseño claro y mejorar la funcionalidad. Desde problemas con la implementación de bloques en Zola hasta la optimización de los estilos CSS, cada ajuste fue una oportunidad para aprender y perfeccionar el resultado final.</p>
+<p>Gracias a estos cambios, mi sitio ahora tiene una estructura sólida, un diseño armonioso y una navegación mejorada, lo que garantiza una experiencia más fluida para quienes lo visitan. Este proceso me ha permitido entender mejor la importancia de la organización y los detalles visuales, lo que me servirá en futuros proyectos para evitar errores y mejorar aún más la calidad de mi trabajo.</p>
+
+</section>
+
+<nav class="main-nav">
+  <ul>
+    <li><a href="/">Ir a inicio</a></li>
+    <li><a href="/blog/">Ir a la lista de posts</a></li>
+    <li><a href="/about/">Ir a Acerca de mí</a></li>
+    <li><a href="/contact/">Contáctame</a></li>
+  </ul>
+</nav>
+
+    </div>
+  </section>
+</body>
+</html>
